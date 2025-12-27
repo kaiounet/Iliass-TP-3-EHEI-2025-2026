@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ asset(product.imageUrl) }}" class="img-fluid rounded" alt="Idk, a placeholder image">
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="mb-3">{{ product.title }}</h1>
+            <p class="text-muted fs-4 mb-3">${{ product.price }}</p>
+
+            <p class="mb-4">
+                {{ product.description }}
+            </p>
+
+            <ul class="list-unstyled mb-4">
+                {% for label, value in product.features %}
+                    <li><strong>{{ label }}:</strong> {{ value }}</li>
+                {% endfor %}
+            </ul>
+
+            {# On ouvre le formulaire #}
+            {{ form_start(form, {'action': path('product_show', {'id': 1})}) }}
+
+                {# Quantity Field #}
+                <div class="mb-3">
+                    {{ form_label(form.quantity, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.quantity) }}
+                    {{ form_errors(form.quantity) }}
+                </div>
+
+                {# Color Field #}
+                <div class="mb-3">
+                    {{ form_label(form.color, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.color) }}
+                    {{ form_errors(form.color) }}
+                </div>
+
+                {# Submit Button #}
+                {{ form_widget(form.submit) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
